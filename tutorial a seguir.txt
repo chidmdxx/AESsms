@@ -1,1 +1,3 @@
 http://mobiforge.com/design-development/sms-messaging-android
+
+http://stackoverflow.com/questions/13239816/gf256-finite-field-multiplication-function-in-c-sharp

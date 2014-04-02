@@ -38,4 +38,22 @@ public class Helper {
         b[0] = last;
         return b;
     }
+
+    public static byte[] LeftShift(byte[] b) {
+
+        for (int i = 1; i < b.length; i++) {
+            b[i - 1] = b[i]; //recorre a la izquierda
+        }
+        b[b.length - 1] = 0x00;
+        return b;
+    }
+
+    public static byte[] RigthShift(byte[] b) {
+
+        for (int i = b.length - 1; i > 0; i--) {
+            b[i] = b[i - 1]; //recorre a la derecha
+        }
+        b[0] = 0x00;
+        return b;
+    }
 }
