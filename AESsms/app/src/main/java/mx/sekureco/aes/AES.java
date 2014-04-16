@@ -49,14 +49,14 @@ public class AES {
         String send;
         byte[] toSend;
         String works = new String();
-        for (int i = 0; i < toDecipher.length(); i += 16) {
-            if (toDecipher.length() - i > 16) {
-                send = toDecipher.substring(i, 16);
+        for (int i = 0; i < toDecipher.length(); i += 32) {
+            if (toDecipher.length() - i > 32) {
+                send = toDecipher.substring(i, 32);
             } else {
                 send = toDecipher.substring(i, toDecipher.length() - i);
             }
-            if (send.length() != 16) {
-                int missing = 16 - send.length();
+            if (send.length() != 32) {
+                int missing = 32 - send.length();
                 for (int j = 0; j < missing; j++) {
                     send += "0";
                 }
@@ -64,7 +64,7 @@ public class AES {
 
             toSend = Helper.hexStringToByteArray(send);
 
-            works += Helper.bytesToHex(Decipher(toSend));
+            works += Helper.bytesToString(Decipher(toSend));
         }
         return works;
     }
