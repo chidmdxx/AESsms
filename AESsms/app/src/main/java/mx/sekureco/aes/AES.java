@@ -12,7 +12,9 @@ public class AES {
     byte[] cipherBytes;
 
     public AES(String key) {
+
         this.key = Helper.hexStringToByteArray(key);
+
     }
 
     public AES(byte[] key) {
@@ -58,7 +60,7 @@ public class AES {
             if (send.length() != 32) {
                 int missing = 32 - send.length();
                 for (int j = 0; j < missing; j++) {
-                    send += "0";
+                    send += "A";
                 }
             }
 
