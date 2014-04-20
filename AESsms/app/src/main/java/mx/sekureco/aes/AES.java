@@ -1,5 +1,10 @@
 package mx.sekureco.aes;
 
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+
 import mx.sekureco.helper.Helper;
 import mx.sekureco.helper.Helper;
 
@@ -10,11 +15,13 @@ public class AES {
     byte[] key;
     byte[] plainBytes;
     byte[] cipherBytes;
+    Map<Byte, Byte> SBoxDic;
+    Map<Byte, Byte> InvSBoxDic;
 
     public AES(String key) {
-
         this.key = Helper.hexStringToByteArray(key);
-
+        SBoxDic= new HashMap<Byte, Byte>() ;
+        InvSBoxDic= new HashMap<Byte, Byte>() ;
     }
 
     public AES(byte[] key) {
@@ -135,6 +142,9 @@ public class AES {
     }
 
     private byte SubByte(byte b) {
+        if(SBoxDic.containsKey(b)){
+            return SBoxDic.get(b);
+        }
         byte toReturn = 0x00;
         byte c = 0x63;
         b = Inverse(b);
@@ -143,6 +153,7 @@ public class AES {
             value = GetBit(b, i) ^ GetBit(b, (i + 4) % 8) ^ GetBit(b, (i + 5) % 8) ^ GetBit(b, (i + 6) % 8) ^ GetBit(b, (i + 7) % 8) ^ GetBit(c, i);
             toReturn = SetBit(toReturn, i, value);
         }
+        SBoxDic.put(b,toReturn);
         return toReturn;
     }
 
@@ -154,6 +165,9 @@ public class AES {
     }
 
     private byte InverseSubByte(byte b) {
+        if(InvSBoxDic.containsKey(b)){
+            return InvSBoxDic.get(b);
+        }
         byte toReturn = 0x00;
         byte d = 0x05;
         b = Inverse(b);
@@ -162,6 +176,7 @@ public class AES {
             value = GetBit(b, (i + 2) % 8) ^ GetBit(b, (i + 5) % 8) ^ GetBit(b, (i + 7) % 8) ^ GetBit(d, i);
             toReturn = SetBit(toReturn, i, value);
         }
+        InvSBoxDic.put(b,toReturn);
         return toReturn;
     }
 
@@ -290,6 +305,9 @@ public class AES {
     private byte Inverse(byte b) {
         if (b == 0) {
             return (byte) 0x00;
+        }
+        if(b==1){
+            return (byte) 0x01;
         }
 
         byte a1 = 0x01;
