@@ -1,4 +1,4 @@
-package net.learn2develop.SMSMessaging;
+package mx.sekureco.aes;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import mx.sekureco.aes.AES;
 
 public class SMS extends Activity
 {
@@ -45,17 +47,12 @@ public class SMS extends Activity
 
 
 
-    private void sendSMS(String phoneNumber, String message)
-    {
-        PendingIntent pi = PendingIntent.getActivity(this, 0,
-                new Intent(this, SMS.class), 0);
-        SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(phoneNumber, null, message, pi, null);
-    }
 
 
     private void sendSMS(String phoneNumber, String message)
     {
+        AES aes=new AES("00000000000000000000000000000000");
+        message=aes.Cipher(message);
         String SENT = "SMS_SENT";
         String DELIVERED = "SMS_DELIVERED";
 

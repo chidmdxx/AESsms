@@ -1,4 +1,4 @@
-package net.learn2develop.SMSMessaging;
+package mx.sekureco.aes;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.telephony.gsm.SmsMessage;
 import android.widget.Toast;
 
+import mx.sekureco.aes.AES;
+
 public class SmsReceiver extends BroadcastReceiver
 {
     @Override
     public void onReceive(Context context, Intent intent)
     {
+        AES aes=new AES("00000000000000000000000000000000");
         //---get the SMS message passed in---
         Bundle bundle = intent.getExtras();
         SmsMessage[] msgs = null;
@@ -25,7 +28,7 @@ public class SmsReceiver extends BroadcastReceiver
                 msgs[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
                 str += "SMS from " + msgs[i].getOriginatingAddress();
                 str += " :";
-                str += msgs[i].getMessageBody().toString();
+                str += aes.Decipher(msgs[i].getMessageBody().toString());
                 str += "\n";
             }
             //---display the new SMS message---
