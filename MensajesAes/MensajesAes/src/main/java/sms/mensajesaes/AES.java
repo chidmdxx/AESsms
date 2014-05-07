@@ -35,7 +35,7 @@ public class AES
             if (toCipher.length() - i > 16) {
                 send = toCipher.substring(i, 16);
             } else {
-                send = toCipher.substring(i, toCipher.length() - i);
+                send = toCipher.substring(i);
             }
             if (send.length() != 16) {
                 int missing = 16 - send.length();
@@ -62,7 +62,7 @@ public class AES
             if (toDecipher.length() - i > 32) {
                 send = toDecipher.substring(i, 32);
             } else {
-                send = toDecipher.substring(i, toDecipher.length() - i);
+                send = toDecipher.substring(i);
             }
             if (send.length() != 32) {
                 int missing = 32 - send.length();
